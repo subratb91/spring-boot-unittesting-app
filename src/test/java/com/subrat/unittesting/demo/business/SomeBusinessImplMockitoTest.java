@@ -1,23 +1,25 @@
 package com.subrat.unittesting.demo.business;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import com.subrat.unittesting.demo.data.SomeDataService;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SomeBusinessImplMockitoTest {
-
+	
+	@InjectMocks
 	SomeBusinessImpl someBusinessImpl = new SomeBusinessImpl();
-	SomeDataService someDataService = mock(SomeDataService.class);
+	
+	@Mock
+	SomeDataService someDataService;
 
-	@Before
-	public void before() {
-		someBusinessImpl.setSomeDataService(someDataService);
-	}
 
 	@Test
 	public void testCalculateSumUsingSomeDataService_Basic() {
