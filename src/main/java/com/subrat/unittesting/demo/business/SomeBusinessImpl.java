@@ -1,5 +1,8 @@
 package com.subrat.unittesting.demo.business;
 
+import java.util.Arrays;
+import java.util.OptionalInt;
+
 import com.subrat.unittesting.demo.data.SomeDataService;
 
 public class SomeBusinessImpl {
@@ -15,6 +18,11 @@ public class SomeBusinessImpl {
 			sum += value;
 		}
 		return sum;
+	}
+	
+	public int calculateSumUsingFunctionalProgramming(int[] data) {
+		OptionalInt optionalInt = Arrays.stream(data).reduce(Integer::sum);
+		return optionalInt.orElse(0);
 	}
 
 	public int calculateSumUsingSomeDataService() {
