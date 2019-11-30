@@ -26,4 +26,8 @@ public class ItemBusinessService {
 		return allItems;
 	}
 
+	public void createItem(Item item) {
+		itemRepository.save(item);
+	}
+
 }

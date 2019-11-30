@@ -1,7 +1,9 @@
 package com.subrat.unittesting.demo.controller;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Arrays;
@@ -15,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -75,6 +78,20 @@ public class ItemControllerTest {
 		MvcResult mvcResult = mockMvc.perform(mockMvcRequest)
 				.andExpect(status().isOk())
 				.andExpect(content().json("[{id:2,name:Item2,price:10},{id:3,name:Item3,price:20}]"))
+				.andReturn();
+	}
+	
+	@Test
+	public void testCreateItem() throws Exception {
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders
+				.post("/create-item")
+				.accept(MediaType.APPLICATION_JSON)
+				.content("{\"id\":1001,\"name\":\"Item1001\",\"price\":1001,\"quantity\":2001}")
+				.contentType(MediaType.APPLICATION_JSON);
+		MvcResult mvcResult = mockMvc.perform(requestBuilder)
+				.andExpect(status().isCreated())
+				//.andExpect(header().string("location", containsString("/item/")))
 				.andReturn();
 	}
 
